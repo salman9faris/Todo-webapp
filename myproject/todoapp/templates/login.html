@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+    }
+
+    .container {
+        width: 360px;
+        padding: 40px 20px;
+        margin: 100px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .container input[type="text"],
+    input[type="email"],
+    .container input[type="password"] {
+        width: calc(100% - 40px);
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+      .container input[type="submit"] {
+        width: calc(100% - 40px);
+        background-color: #ad3260;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+
+    .container input[type="submit"]:hover {
+        background-color: #ad3260;
+    }
+
+    .container p {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .container p a {
+        color: #ad3260;
+        text-decoration: none;
+    }
+
+
+    .container p a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+
+ {% include "navbar.html" %}
+ {% if page == "login" %}
+<div class="container">
+
+
+
+    <h2>{{page}}</h2>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="uname">Username:</label>
+        <input type="text" placeholder="Enter username" name= "username" required>
+        <label for="password">Password:</label>
+        <input type="password" placeholder="Enter password" name= "password" required>
+        {% if messages %}
+        {% for message in messages%}
+        <li>{{message}}</li>
+        {% endfor %}
+        {% endif %}
+        <input type="submit" value="Login">
+    </form>
+    <p>Don't have an account? <a href="{% url 'registerpage' %}">Sign up</a></p>
+</div>
+{% else %}
+
+
+<div class="container">
+    <h2>Signup</h2>
+    <form action="#" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <label type="text" >{{field.label}}</label>
+        {{field}}
+{% endfor %}
+{% if messages %}
+        {% for message in messages%}
+        <li>{{message}}</li>
+        {% endfor %}
+        {% endif %}
+        <input type="submit" value="Signup">
+        <p>Already have an account? <a href="{% url 'loginpage' %}">Login here</a></p>
+    </form>
+</div>
+
+{% endif %}
+</body>
+</html>
+
